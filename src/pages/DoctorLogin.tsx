@@ -68,26 +68,26 @@ export default function SignupCard() {
                 minH={'100vh'}
                 align={'center'}
                 justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
+                bg={useColorModeValue('gray.800', 'gray.900')}>
                 <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                     <Stack align={'center'}>
-                        <Heading fontSize={'4xl'} textAlign={'center'}>
+                        <Heading fontSize={'4xl'} textAlign={'center'} textColor={'white'}>
                             Login
                         </Heading>
-                        <Text fontSize={'lg'} color={'gray.600'}>
+                        <Text textColor={'white'} fontSize={'lg'}>
                             to start off quickly! ✌️
                         </Text>
                     </Stack>
                     <Box
                         rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
+                        bg={useColorModeValue('gray.700', 'gray.600')}
                         boxShadow={'lg'}
                         p={8}>
                         <Stack spacing={4}>
                     
                                     <FormControl id="aadhar" isRequired>
-                                        <FormLabel>Aadhar Card Number</FormLabel>
-                                        <Input type="text" onChange={(e) => {
+                                        <FormLabel color={'white'}>Aadhar Card Number</FormLabel>
+                                        <Input type="text" textColor={'white'} onChange={(e) => {
                                             setForm(prev => ({ ...prev, aadhar: e.target.value }))
                                         }} />
                                     </FormControl>
@@ -96,10 +96,10 @@ export default function SignupCard() {
                                 <Button
                                     loadingText="Submitting"
                                     size="lg"
-                                    bg={'blue.400'}
+                                    bg={'teal.400'}
                                     color={'white'}
                                     _hover={{
-                                        bg: 'blue.500',
+                                        bg: 'teal.500',
                                     }}
                                     onClick={(e) => {
                                         handleSubmit();
@@ -109,8 +109,8 @@ export default function SignupCard() {
                                 </Button>
                             </Stack>
                             <Stack pt={6}>
-                                <Text align={'center'}>
-                                    Not registered? <Link color={'blue.400'} href="/doctor_register">Register</Link>
+                                <Text  textColor={'white'} align={'center'}>
+                                    Not registered? <Link color={'teal.400'} href="/doctor_register">Register</Link>
                                 </Text>
                             </Stack>
                         </Stack>

@@ -15,6 +15,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@pinata/sdk": "^2.1.0",
+    "@shadcn/ui": "^0.0.4",
     "@taquito/beacon-wallet": "^17.0.0",
     "@taquito/taquito": "^17.0.0",
     "buffer": "^6.0.3",

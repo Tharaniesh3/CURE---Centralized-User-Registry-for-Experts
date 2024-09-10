@@ -125,20 +125,21 @@ console.log(patientDiagnosis);
       minH={"100vh"}
       justify={"center"}
       flexDirection={"column"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
-      <Stack spacing={8} mx={"auto"} my={"3rem"} maxW={"40vw"} py={12} px={6}>
-        <Heading lineHeight="tall">Get All Patients</Heading>
+      bg={useColorModeValue('gray.900', 'blackAlpha.300')} 
+      >
+        
+      <Stack spacing={8} mx={"auto"} my={"3rem"} maxW={"40vw"} py={12} px={6} >
+        <Heading lineHeight="tall" color='white'>Get All Patients</Heading>
         <Box
+                  bg={useColorModeValue('gray.700', 'gray.500')}
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
           boxShadow={"lg"}
           p={8}
         >
-          <Stack spacing={4}>
+          <Stack spacing={4} >
             <FormControl id="privateKey" isRequired>
-              <FormLabel>Enter your private key</FormLabel>
-              <Input
+              <FormLabel  color='white'>Enter your private key</FormLabel>
+              <Input color={'white'}
                 type="text"
                 placeholder="Secret Key"
                 name="privateKey"
@@ -149,10 +150,10 @@ console.log(patientDiagnosis);
             <Button
               loadingText="Submitting"
               size="lg"
-              bg={"blue.400"}
+              bg={"teal.400"}
               color={"white"}
               _hover={{
-                bg: "blue.500",
+                bg: "teal.500",
               }}
               onClick={getDiagnosis}
             >
@@ -177,7 +178,7 @@ console.log(patientDiagnosis);
         </Stack>
       </Stack>:""}
       <Stack spacing={8} maxW={"100vw"} px={6}>
-      <Heading fontSize={'4xl'} textAlign={'center'}>
+      <Heading fontSize={'4xl'} textAlign={'center'}  color={'white'}>
       Your Patients
       </Heading>
         {UserDiagnosis && UserDiagnosis.length ? (

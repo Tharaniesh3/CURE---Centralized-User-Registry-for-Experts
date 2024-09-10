@@ -5,9 +5,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputGroup,
   HStack,
-  InputRightElement,
   Stack,
   Button,
   Heading,
@@ -17,14 +15,11 @@ import {
   RadioGroup,
   Radio,
   createStandaloneToast,
-  Highlight,
+  SlideFade,
   useDisclosure,
 } from "@chakra-ui/react";
-
-import { Fade, ScaleFade, Slide, SlideFade, Collapse } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { showToast } from "../utils/showToasts";
+import { useState } from "react";
 import { addPatient } from "../utils/operation";
 
 const { toast, ToastContainer } = createStandaloneToast();
@@ -41,12 +36,25 @@ export default function SignupCard() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { isOpen, onToggle } = useDisclosure();
+
   const allFieldsFilled = () => {
     const values = Object.values(form);
     return values.every((value) => value.trim().length > 0);
   };
 
   const handleSubmit = async () => {
+    if (!allFieldsFilled()) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill out all fields.",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
     let data = JSON.stringify(form);
 
     let config = {
@@ -63,38 +71,36 @@ export default function SignupCard() {
       .request(config as any)
       .then(async (response) => {
         const res = response.data;
-        const reg = await addPatient(
-          res.sex,
-          res.aadhar,
-          res.publicKey,
-          res.name,
-          res.age
-        )
-          .then((con) => {
-            console.log(con);
-            console.log("secretKey is as follows");
-            console.log(res.privateKey);
-            setForm((prev) => ({
-              ...prev,
-              privateKey: res.privateKey,
-            }));
-
-            // redirect()
-            setRegistered(true);
-            setMsg(res.privateKey);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        // console.log(reg)
-        // console.log("registered ")
-        // redirect()
+        try {
+          await addPatient(
+            res.sex,
+            res.aadhar,
+            res.publicKey,
+            res.name,
+            res.age
+          );
+          setForm((prev) => ({
+            ...prev,
+            privateKey: res.privateKey,
+          }));
+          setRegistered(true);
+          setMsg(res.privateKey);
+        } catch (err) {
+          console.error(err);
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+        toast({
+          title: "Registration Error",
+          description: "There was a problem with your registration.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       });
   };
-  const { isOpen, onToggle } = useDisclosure();
+
   return (
     <>
       {registered ? (
@@ -102,7 +108,8 @@ export default function SignupCard() {
           minH={"100vh"}
           align={"center"}
           justify={"center"}
-          bg={useColorModeValue("gray.50", "gray.800")}
+          bg={useColorModeValue('gray.800', 'gray.900')}
+          p={4}
         >
           <Stack
             spacing={8}
@@ -111,26 +118,37 @@ export default function SignupCard() {
             maxW={"80vw"}
             py={12}
             px={6}
+            align={"center"}
           >
-            <Heading lineHeight="tall">
-              Registered Successfully! Please note down your private key as this
-              will be only shown once now and you will not be able to access
-              this ever again. Click the button to view the key.
-              <Button onClick={onToggle}>Click Me</Button>
-              <SlideFade in={isOpen} offsetY="4px" style={{ fontSize: "1rem" }}>
+            <Heading
+              lineHeight="tall"
+              textAlign={"center"}
+              color={useColorModeValue("teal.300", "teal.400")}
+            >
+              Registered Successfully!
+              <Text mt={4}>
+                Please note down your private key as this will be shown only
+                once. Click the button to view the key.
+              </Text>
+              <Button mt={4} colorScheme="teal" onClick={onToggle}>
+                {isOpen ? "Hide Key" : "Show Key"}
+              </Button>
+              <SlideFade in={isOpen} offsetY="20px">
                 <Box
-                  p="50px"
+                  mt={4}
+                  p={6}
+                  bg={useColorModeValue('gray.800', 'gray.900')}
                   color="white"
-                  mt="5"
-                  bg="teal.500"
                   rounded="md"
                   shadow="md"
                 >
-                  {JSON.stringify(msg).slice(1, -1)}
+                  {msg}
                 </Box>
               </SlideFade>
             </Heading>
-            <Button onClick={() => navigate("/login")}>Login now</Button>
+            <Button mt={6} colorScheme="teal" onClick={() => navigate("/login")}>
+              Login now
+            </Button>
           </Stack>
         </Flex>
       ) : (
@@ -138,115 +156,98 @@ export default function SignupCard() {
           minH={"100vh"}
           align={"center"}
           justify={"center"}
-          bg={useColorModeValue("gray.50", "gray.800")}
+          bg={useColorModeValue("gray.800", "gray.900")}
+          p={4}
         >
           <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
             <Stack align={"center"}>
-              <Heading fontSize={"4xl"} textAlign={"center"}>
-                Sign up
+              <Heading fontSize={"4xl"} textAlign={"center"} color="white">
+                Sign Up
               </Heading>
-              <Text fontSize={"lg"} color={"gray.600"}>
-                to enjoy all of our cool features ✌️
+              <Text fontSize={"lg"} color={"gray.400"}>
+                Join us and enjoy all of our features!
               </Text>
             </Stack>
             <Box
               rounded={"lg"}
-              bg={useColorModeValue("white", "gray.700")}
+              bg={useColorModeValue("gray.700", "gray.800")}
               boxShadow={"lg"}
               p={8}
             >
               <Stack spacing={4}>
-                <HStack>
-                  <Box>
+                <HStack spacing={4}>
+                  <Box flex="1">
                     <FormControl id="Name" isRequired>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel color="gray.300">Name</FormLabel>
                       <Input
                         type="text"
-                        onChange={(e) => {
+                        placeholder="Enter your name"
+                        color="white"
+                        bg={useColorModeValue("gray.800", "gray.700")}
+                        onChange={(e) =>
                           setForm((prev) => ({
                             ...prev,
                             name: e.target.value,
-                          }));
-                        }}
+                          }))
+                        }
                       />
                     </FormControl>
                   </Box>
-                  <Box>
+                  <Box flex="1">
                     <FormControl id="Age" isRequired>
-                      <FormLabel>Age</FormLabel>
+                      <FormLabel color="gray.300">Age</FormLabel>
                       <Input
-                        type="Age"
-                        onChange={(e) => {
-                          setForm((prev) => ({ ...prev, age: e.target.value }));
-                        }}
+                        type="number"
+                        placeholder="Enter your age"
+                        color="white"
+                        bg={useColorModeValue("gray.800", "gray.700")}
+                        onChange={(e) =>
+                          setForm((prev) => ({ ...prev, age: e.target.value }))
+                        }
                       />
                     </FormControl>
                   </Box>
                 </HStack>
                 <FormControl id="aadhar" isRequired>
-                  <FormLabel>Aadhar Card Number</FormLabel>
+                  <FormLabel color="gray.300">Aadhar Card Number</FormLabel>
                   <Input
                     type="text"
-                    onChange={(e) => {
-                      setForm((prev) => ({ ...prev, aadhar: e.target.value }));
-                    }}
+                    placeholder="Enter your Aadhar number"
+                    color="white"
+                    bg={useColorModeValue("gray.800", "gray.700")}
+                    onChange={(e) =>
+                      setForm((prev) => ({ ...prev, aadhar: e.target.value }))
+                    }
                   />
                 </FormControl>
                 <FormControl id="gender" isRequired>
-                  <FormLabel>Gender</FormLabel>
-                  <RadioGroup defaultValue="1">
-                    <Stack spacing={5} direction="row">
-                      <Radio
-                        colorScheme="blue"
-                        value="male"
-                        onChange={(e) => {
-                          setForm((prev) => ({ ...prev, sex: "male" }));
-                        }}
-                      >
-                        Male
-                      </Radio>
-                      <Radio
-                        colorScheme="pink"
-                        value="female"
-                        onChange={(e) => {
-                          setForm((prev) => ({ ...prev, sex: "female" }));
-                        }}
-                      >
-                        Female
-                      </Radio>
-                      <Radio
-                        colorScheme="yellow"
-                        value="other"
-                        onChange={(e) => {
-                          setForm((prev) => ({ ...prev, sex: "other" }));
-                        }}
-                      >
-                        Other
-                      </Radio>
+                  <FormLabel color="gray.300">Gender</FormLabel>
+                  <RadioGroup value={form.sex} onChange={(value) => setForm((prev) => ({ ...prev, sex: value }))}>
+                    <Stack spacing={4} direction="row" color={"white"}>
+                      <Radio color="white" value="male">Male</Radio>
+                      <Radio color="white" value="female">Female</Radio>
+                      <Radio color="white" value="other">Other</Radio>
                     </Stack>
                   </RadioGroup>
                 </FormControl>
-
                 <Stack spacing={10} pt={2}>
                   <Button
                     loadingText="Submitting"
                     size="lg"
-                    bg={"blue.400"}
+                    bg={"teal.500"}
                     color={"white"}
                     _hover={{
-                      bg: "blue.500",
+                      bg: "teal.600",
                     }}
-                    onClick={(e) => {
-                      handleSubmit();
-                    }}
+                    onClick={handleSubmit}
                   >
-                    Sign up
+                    Sign Up
                   </Button>
                 </Stack>
                 <Stack pt={6}>
-                  <Text align={"center"}>
+                  <Text align={"center"} color="gray.400">
                     Already a user?{" "}
-                    <Link color={"blue.400"} href="/login">
+                    <Link color={"teal.300"} href="/login">
                       Login
                     </Link>
                   </Text>
@@ -256,8 +257,7 @@ export default function SignupCard() {
           </Stack>
         </Flex>
       )}
-
       <ToastContainer />
     </>
-  );
+  )
 }

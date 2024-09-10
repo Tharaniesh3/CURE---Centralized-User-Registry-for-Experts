@@ -5,27 +5,18 @@ import {
     FormControl,
     FormLabel,
     Input,
-    InputGroup,
-    HStack,
-    InputRightElement,
-    Stack,
     Button,
+    Stack,
     Heading,
     Text,
     useColorModeValue,
     Link,
-    RadioGroup,
-    Radio,
-    createStandaloneToast,
-    Highlight,
-    useDisclosure
-} from '@chakra-ui/react'
-
-import { Fade, ScaleFade, Slide, SlideFade, Collapse } from '@chakra-ui/react'
+    useDisclosure,
+    createStandaloneToast
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react'
-import { showToast } from '../utils/showToasts';
-import { addPatient, addRecord } from '../utils/operation';
+import { useEffect, useState } from 'react';
+import { addRecord } from '../utils/operation';
 import { useSessionStorage } from '../utils/useSessionStorage';
 
 const { toast, ToastContainer } = createStandaloneToast();
@@ -49,90 +40,76 @@ export default function PatientAddDiag() {
         doctorName: "",
         document: "",
         symptoms: "",
-    })
+    });
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(newDiagnosis);
-        
-    },[newDiagnosis])
+    }, [newDiagnosis]);
 
     const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const allFieldsFilled = () => {
         const values = Object.values(newDiagnosis);
         return values.every(value => value.trim().length > 0);
-    }
+    };
 
     const handleChange = (event) => {
-        const { name, value } = event.target
-        setNewDiagnosis(prevValue => (
-            {
-                ...prevValue,
-                [name]: value
-            })
-        )
-    }
+        const { name, value } = event.target;
+        setNewDiagnosis(prevValue => ({
+            ...prevValue,
+            [name]: value
+        }));
+    };
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        const url = 'http://localhost:4000/api/makeDiagnosis'
+        const url = 'http://localhost:4000/api/makeDiagnosis';
         let config = {
             maxBodyLength: Infinity,
             headers: {
                 'Content-Type': 'application/json'
             }
         };
-        console.log("Making the call")
+        console.log("Making the call");
 
-        setNewDiagnosis(prev=>({
-            ...prev, 
+        setNewDiagnosis(prev => ({
+            ...prev,
             privateKey: prev.privateKey.replace(/\\n/g, '\n')
-        }))
+        }));
 
         let requestParam = {
-            "aadhar" : newDiagnosis.aadhar,
-            "privateKey" : newDiagnosis.privateKey,
-            "name" : newDiagnosis.name,
-            "diagnosis" : newDiagnosis.diagnosis,
-            "docType" : newDiagnosis.docType,
-            "docName" : newDiagnosis.doctorName,
-            "document" : newDiagnosis.document,
-            "symptoms" : newDiagnosis.symptoms
-        }
+            "aadhar": newDiagnosis.aadhar,
+            "privateKey": newDiagnosis.privateKey,
+            "name": newDiagnosis.name,
+            "diagnosis": newDiagnosis.diagnosis,
+            "docType": newDiagnosis.docType,
+            "docName": newDiagnosis.doctorName,
+            "document": newDiagnosis.document,
+            "symptoms": newDiagnosis.symptoms
+        };
 
         axios.post(url, requestParam, config)
             .then(async (response) => {
-                console.log(response.data)
+                console.log(response.data);
                 console.log(JSON.stringify(response.data));
                 await addRecord(response.data.symptoms, response.data.diagnosis, response.data.name, response.data.document,
-                    response.data.DocName, response.data.DocType, response.data.userAadhar, response.data.RSAencryptedcipherKey).
-                    then(
+                    response.data.DocName, response.data.DocType, response.data.userAadhar, response.data.RSAencryptedcipherKey)
+                    .then(
                         (response) => {
                             console.log(response);
-                            navigate('/patient_home')
+                            navigate('/patient_home');
                         }
                     ).catch((error) => {
                         console.log(error);
-                    })
+                    });
             })
             .catch((error) => {
                 console.log(error);
-                
             });
-    }
-
-    // const handleDocumentHash = async (e)=>{
-    //     e.preventDefault();
-
-
-    //     //call your api and get the document hash from IPFS from the response and add the following line
-    //     const val = "bhrb2iue3uidbi2fbib" //example hash
-    //     setNewDiagnosis(prev=>({...prev, document:val}))
-    // }
-
+    };
 
     const handleDocumentHash = async (e) => {
         e.preventDefault();
@@ -149,7 +126,7 @@ export default function PatientAddDiag() {
                 });
 
                 console.log("document:response.data.document = ", response.data.document);
-                setNewDiagnosis(prev=>({...prev, document:response.data.document}));
+                setNewDiagnosis(prev => ({ ...prev, document: response.data.document }));
                 console.log("newDiagnosis = ", newDiagnosis);
                 console.log('File uploaded:', response.data);
             } catch (error) {
@@ -158,96 +135,140 @@ export default function PatientAddDiag() {
         }
     };
 
-
     return (
         <>
             <Flex
                 minH={'100vh'}
                 align={'center'}
                 justify={'center'}
-                bg={useColorModeValue('gray.50', 'gray.800')}>
-                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6} my={20}>
+                bg={useColorModeValue('gray.800', 'gray.900')}
+                p={4}
+            >
+                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                     <Stack align={'center'}>
-                        <Heading fontSize={'4xl'} textAlign={'center'}>
+                        <Heading fontSize={'4xl'} textAlign={'center'} color={useColorModeValue('white', 'gray.100')}>
                             Add Diagnosis
                         </Heading>
-                        <Text fontSize={'lg'} color={'gray.600'}>
-                            to let you and your doctor know! ✌️
+                        <Text fontSize={'lg'} color={'gray.400'}>
+                            Keep your records updated! ✌️
                         </Text>
                     </Stack>
                     <Box
                         rounded={'lg'}
-                        bg={useColorModeValue('white', 'gray.700')}
+                        bg={useColorModeValue('gray.700', 'gray.800')}
                         boxShadow={'lg'}
-                        p={8}>
+                        p={8}
+                    >
                         <Stack spacing={4}>
                             <FormControl id="privatekey" isRequired>
-                                <FormLabel>Enter your private key</FormLabel>
-                                <Input type="text" name="privateKey"
-                                    value={newDiagnosis.privateKey} onChange={handleChange} />
+                                <FormLabel color={useColorModeValue('gray.300', 'gray.400')}>Enter your private key</FormLabel>
+                                <Input
+                                    type="text"
+                                    name="privateKey"
+                                    value={newDiagnosis.privateKey}
+                                    onChange={handleChange}
+                                    bg={useColorModeValue('gray.600', 'gray.700')}
+                                    color="white"
+                                    borderColor={useColorModeValue('gray.500', 'gray.600')}
+                                />
                             </FormControl>
 
                             <FormControl id="diagnosis" isRequired>
-                                <FormLabel>Diagnosis Subject</FormLabel>
-                                <Input type="text" name="diagnosis"
-                                    value={newDiagnosis.diagnosis} onChange={handleChange} />
+                                <FormLabel color={useColorModeValue('gray.300', 'gray.400')}>Diagnosis Subject</FormLabel>
+                                <Input
+                                    type="text"
+                                    name="diagnosis"
+                                    value={newDiagnosis.diagnosis}
+                                    onChange={handleChange}
+                                    bg={useColorModeValue('gray.600', 'gray.700')}
+                                    color="white"
+                                    borderColor={useColorModeValue('gray.500', 'gray.600')}
+                                />
                             </FormControl>
 
                             <FormControl id="docType" isRequired>
-                                <FormLabel>Document Type</FormLabel>
-                                <Input type="text" name="docType"
-                                    value={newDiagnosis.docType} onChange={handleChange} />
+                                <FormLabel color={useColorModeValue('gray.300', 'gray.400')}>Document Type</FormLabel>
+                                <Input
+                                    type="text"
+                                    name="docType"
+                                    value={newDiagnosis.docType}
+                                    onChange={handleChange}
+                                    bg={useColorModeValue('gray.600', 'gray.700')}
+                                    color="white"
+                                    borderColor={useColorModeValue('gray.500', 'gray.600')}
+                                />
                             </FormControl>
 
                             <FormControl id="doctorName" isRequired>
-                                <FormLabel>Doctor Name</FormLabel>
-                                <Input type="text" name="doctorName"
-                                    value={newDiagnosis.doctorName} onChange={handleChange} />
+                                <FormLabel color={useColorModeValue('gray.300', 'gray.400')}>Doctor Name</FormLabel>
+                                <Input
+                                    type="text"
+                                    name="doctorName"
+                                    value={newDiagnosis.doctorName}
+                                    onChange={handleChange}
+                                    bg={useColorModeValue('gray.600', 'gray.700')}
+                                    color="white"
+                                    borderColor={useColorModeValue('gray.500', 'gray.600')}
+                                />
                             </FormControl>
 
                             <FormControl id="document" isRequired>
-                                <FormLabel>Medical Document</FormLabel>
-                                <Input type="file" name="document"  onChange={handleFileChange}/>
-                                    <Button
+                                <FormLabel color={useColorModeValue('gray.300', 'gray.400')}>Medical Document</FormLabel>
+                                <Input
+                                    type="file"
+                                    name="document"
+                                    onChange={handleFileChange}
+                                    bg={useColorModeValue('gray.600', 'gray.700')}
+                                    color="white"
+                                />
+                                <Button
                                     loadingText="Submitting"
                                     size="md"
                                     bg={'orange.400'}
                                     color={'white'}
                                     _hover={{
-                                        bg: 'red.500',
+                                        bg: 'orange.500',
                                     }}
+                                    mt={2}
                                     onClick={handleDocumentHash}
-                                    >
+                                >
                                     Upload Document
                                 </Button>
                             </FormControl>
 
-                            
-
                             <FormControl id="symptoms" isRequired>
-                                <FormLabel>Symptoms</FormLabel>
-                                <Input type="text" name="symptoms"
-                                    value={newDiagnosis.symptoms} onChange={handleChange} />
+                                <FormLabel color={useColorModeValue('gray.300', 'gray.400')}>Symptoms</FormLabel>
+                                <Input
+                                    type="text"
+                                    name="symptoms"
+                                    value={newDiagnosis.symptoms}
+                                    onChange={handleChange}
+                                    bg={useColorModeValue('gray.600', 'gray.700')}
+                                    color="white"
+                                    borderColor={useColorModeValue('gray.500', 'gray.600')}
+                                />
                             </FormControl>
 
                             <Stack spacing={10} pt={2}>
                                 <Button
                                     loadingText="Submitting"
                                     size="lg"
-                                    bg={'blue.400'}
+                                    bg={'teal.400'}
                                     color={'white'}
                                     _hover={{
-                                        bg: 'blue.500',
+                                        bg: 'teal.500',
                                     }}
                                     onClick={(e) => {
                                         handleSubmit(e);
-                                    }}>
+                                    }}
+                                >
                                     Add Diagnosis
                                 </Button>
                             </Stack>
+
                             <Stack pt={6}>
-                                <Text align={'center'}>
-                                    Make an appointment? <Link color={'blue.400'} href="/patient_appointment">Add Appointment</Link>
+                                <Text align={'center'} color= 'white'>
+                                    Make an appointment? <Link color={'teal.400'} href="/patient_appointment">Add Appointment</Link>
                                 </Text>
                             </Stack>
                         </Stack>
@@ -257,5 +278,5 @@ export default function PatientAddDiag() {
 
             <ToastContainer />
         </>
-    )
+    );
 }
