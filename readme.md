@@ -1,6 +1,6 @@
 # CURE---CENTRALIZED-USER-REGISTRY-FOR-EXPERTS using Tezos Blockchain
 
-![Project Logo](https://raw.githubusercontent.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/main/src/assets/cure.png)
+![Project Logo](https://raw.githubusercontent.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/main/src/assets/cure1.png)
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -21,7 +21,7 @@
 ## Tech Stack
 - **Backend**: Node.js, Express.js
 - **Blockchain**: Tezos Blockchain
-- **Encryption**: AES (Advanced Encryption Standard), RSA
+- **Encryption**: AES & RSA
 - **Decentralized Storage**: IPFS (InterPlanetary File System)
 - **Frontend**: React.js
 - **Authentication**: JWT, bcrypt (optional for user authentication)
