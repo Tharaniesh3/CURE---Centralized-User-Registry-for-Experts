@@ -1,6 +1,6 @@
 # CURE---CENTRALIZED-USER-REGISTRY-FOR-EXPERTS using Tezos Blockchain
 
-![Project Logo](placeholder-for-your-image.png)
+![Project Logo](https://github.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/blob/main/src/assets/cure.png?raw=true)
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -8,9 +8,6 @@
 - [Tech Stack](#tech-stack)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Project Overview
 **CURE (Centralized User Registry for Experts)** is a health record management system built on the **Tezos blockchain**. It ensures secure and decentralized storage of health records, enabling patients to securely share their personal data with doctors. The system incorporates **AES** and **RSA encryption** for security and uses **IPFS** for decentralized file storage. The focus is on privacy, transparency, and interoperability of health data.
@@ -27,7 +24,6 @@
 - **Encryption**: AES (Advanced Encryption Standard), RSA
 - **Decentralized Storage**: IPFS (InterPlanetary File System)
 - **Frontend**: React.js
-- **Database**: MongoDB (optional)
 - **Authentication**: JWT, bcrypt (optional for user authentication)
 
 ## Usage
@@ -48,8 +44,8 @@ Here are some of the key API routes available in the project:
 ```bash
 POST /api/register
 {
-  "name": "John Doe",
+  "name": "Tharaniesh P R",
   "aadhar": "123456789012",
-  "age": 30,
+  "age": 20,
   "sex": "Male"
 }
