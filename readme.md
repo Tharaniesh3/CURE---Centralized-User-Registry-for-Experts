@@ -1,6 +1,6 @@
 # CURE---CENTRALIZED-USER-REGISTRY-FOR-EXPERTS using Tezos Blockchain
 
-![Project Logo](https://github.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/blob/main/src/assets/cure.png?raw=true)
+![Project Logo](https://raw.githubusercontent.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/main/src/assets/cure.png)
 
 ## Table of Contents
 - [Project Overview](#project-overview)
