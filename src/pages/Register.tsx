@@ -60,7 +60,7 @@ export default function SignupCard() {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://healthrecordmanagemb-production.up.railway.app/api/register",
+      url: "https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/register",
       headers: {
         "Content-Type": "application/json",
       },

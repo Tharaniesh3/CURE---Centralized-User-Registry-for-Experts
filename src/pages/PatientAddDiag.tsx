@@ -66,7 +66,7 @@ export default function PatientAddDiag() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const url = 'https://healthrecordmanagemb-production.up.railway.app/api/makeDiagnosis';
+        const url = 'https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/makeDiagnosis';
         let config = {
             maxBodyLength: Infinity,
             headers: {
@@ -119,7 +119,7 @@ export default function PatientAddDiag() {
             formData.append('document', selectedFile);
 
             try {
-                const response = await axios.post('https://healthrecordmanagemb-production.up.railway.app/api/upload', formData, {
+                const response = await axios.post('https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/upload', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },

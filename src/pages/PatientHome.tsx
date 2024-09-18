@@ -48,7 +48,7 @@ const PatientHome = () => {
         ...prev,
         privateKey: key.privateKey.replace(/\\n/g, '\n')
       }));
-      const response = await axios.post("https://healthrecordmanagemb-production.up.railway.app/api/get_diagnosis", key, config);
+      const response = await axios.post("https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/get_diagnosis", key, config);
       const { message, data, doctorAccess, hashedAadhar } = response.data;
       console.log("doctorAccess: ", doctorAccess);
       setAccess(doctorAccess);
