@@ -22,7 +22,6 @@ import HospitalInfo from "./pages/Hospital";
 import {useSessionStorage} from './utils/useSessionStorage'
 import PatientProfile from "./pages/PatientProfile";
 import Welcome from "./pages/Welcome";
-import Chatbot from './components/Chatbot';
 
 const App: React.FC = () => {
 
