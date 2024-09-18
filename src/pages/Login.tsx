@@ -43,7 +43,7 @@ export default function SignupCard() {
             privateKey: form.privateKey.replace(/\\n/g, '\n')
         }));
 
-        const url = 'http://localhost:4000/api/login';
+        const url = 'https://healthrecordmanagemb-production.up.railway.app/api/login';
         let config = {
             maxBodyLength: Infinity,
             headers: {

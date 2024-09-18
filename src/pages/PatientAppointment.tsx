@@ -29,7 +29,7 @@ export default function PatientAppointment() {
     useEffect(() => {
         async function fetchDoctors() {
             try {
-                const response = await axios.get("http://localhost:4000/api/DoctorList");
+                const response = await axios.get("https://healthrecordmanagemb-production.up.railway.app/api/DoctorList");
                 setDoctors(response.data.data);
             } catch (error) {
                 console.error("Error fetching doctors:", error);
@@ -66,7 +66,7 @@ export default function PatientAppointment() {
             privateKey: prev.privateKey.replace(/\\n/g, '\n')
         }));
 
-        const url = 'http://localhost:4000/api/makeAppointment';
+        const url = 'https://healthrecordmanagemb-production.up.railway.app/api/makeAppointment';
         const config = {
             maxBodyLength: Infinity,
             headers: { 'Content-Type': 'application/json' }

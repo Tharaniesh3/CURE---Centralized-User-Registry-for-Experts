@@ -59,7 +59,7 @@ export default function SignupCard() {
 
         setLoading(true);
         try {
-            const response = await axios.get("http://localhost:4000/api/newUser");
+            const response = await axios.get("https://healthrecordmanagemb-production.up.railway.app/api/newUser");
             const res = response.data;
             const reg = await addDoctor(form.speciality, form.aadhar, form.sex, res.public, form.name, form.hospital, form.age);
 

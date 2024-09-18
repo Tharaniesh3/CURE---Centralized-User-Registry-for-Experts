@@ -43,7 +43,7 @@ export default function DoctorView() {
 
   async function getDiagnosis() {
     const response = await axios.post(
-      "http://localhost:4000/api/getDoctorViewList",
+      "https://healthrecordmanagemb-production.up.railway.app/api/getDoctorViewList",
       {
         aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),
@@ -80,7 +80,7 @@ console.log(patientDiagnosis);
   async function oneDiagnosis(item) {
     console.log(item);
     const response = await axios.post(
-      "http://localhost:4000/api/doctorViewDiagnosis",
+      "https://healthrecordmanagemb-production.up.railway.app/api/doctorViewDiagnosis",
       {
         aadhar: item.Aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),

@@ -12,7 +12,7 @@ const HospitalInfo = () => {
     // Fetch hospital and doctor data from the API
     const fetchHospitalData = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/getHospital");
+        const response = await axios.get("https://healthrecordmanagemb-production.up.railway.app/api/getHospital");
         setHospitalData(response.data.data);
         setLoading(false);
       } catch (error) {
