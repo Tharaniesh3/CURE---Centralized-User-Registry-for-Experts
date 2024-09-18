@@ -137,7 +137,7 @@ const Welcome = () => {
                             text2="Login"
                             link1="/register"
                             link2="/login"
-                            img="/src/assets/patient.png"
+                            img="https://raw.githubusercontent.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/main/src/assets/patient.png"
                         />
                     </Box>
 
@@ -203,7 +203,7 @@ const Welcome = () => {
                             desc="If you want to view hospitals and doctors, click here"
                             text1="Enter Hospitals"
                             link1="/hospital"
-                            img="/src/assets/hospital.png"
+                            img="https://raw.githubusercontent.com/Tharaniesh3/CURE---Centralized-User-Registry-for-Experts/main/src/assets/hospital.png"
                         />
                     </Box>
                 </Stack>
