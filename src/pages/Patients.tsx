@@ -26,7 +26,7 @@ export default function Patients() {
   const diagnosisList = async () => {
     if (loggedIn === true) {
       try {
-        const response = await axios.post("https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/getDiagnostic", {
+        const response = await axios.post("http://localhost:4000/api/getDiagnostic", {
           aadhar: form.aadhar,
         });
 

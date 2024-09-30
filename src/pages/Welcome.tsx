@@ -50,7 +50,7 @@ const Welcome = () => {
                     <Heading
                         as="h1"
                         fontSize={{ base: '4xl', md: '4xl' }}
-                        bg={useColorModeValue('gray.900', 'blackAlpha.300')}  // Darker background for contrast
+                        bg={useColorModeValue('gray.900', 'blackAlpha.300')}  
                         >
                         <Text as="span" fontSize="4xl" color="teal.300" fontWeight="bold">
                             C

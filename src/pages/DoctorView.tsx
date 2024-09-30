@@ -43,7 +43,7 @@ export default function DoctorView() {
 
   async function getDiagnosis() {
     const response = await axios.post(
-      "https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/getDoctorViewList",
+      "http://localhost:4000/api/getDoctorViewList",
       {
         aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),
@@ -80,7 +80,7 @@ console.log(patientDiagnosis);
   async function oneDiagnosis(item) {
     console.log(item);
     const response = await axios.post(
-      "https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/doctorViewDiagnosis",
+      "http://localhost:4000/api/doctorViewDiagnosis",
       {
         aadhar: item.Aadhar,
         privateKey: docForm.privateKey.replace(/\\n/g, "\n"),

@@ -12,7 +12,7 @@ const HospitalInfo = () => {
     // Fetch hospital and doctor data from the API
     const fetchHospitalData = async () => {
       try {
-        const response = await axios.get("https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/getHospital");
+        const response = await axios.get("http://localhost:4000/api/getHospital");
         setHospitalData(response.data.data);
         setLoading(false);
       } catch (error) {

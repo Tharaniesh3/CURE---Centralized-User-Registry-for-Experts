@@ -29,7 +29,7 @@ export default function PatientAppointment() {
     useEffect(() => {
         async function fetchDoctors() {
             try {
-                const response = await axios.get("https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/DoctorList");
+                const response = await axios.get("http://localhost:4000/api/DoctorList");
                 setDoctors(response.data.data);
             } catch (error) {
                 console.error("Error fetching doctors:", error);
@@ -66,7 +66,7 @@ export default function PatientAppointment() {
             privateKey: prev.privateKey.replace(/\\n/g, '\n')
         }));
 
-        const url = 'https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/makeAppointment';
+        const url = 'http://localhost:4000/api/makeAppointment';
         const config = {
             maxBodyLength: Infinity,
             headers: { 'Content-Type': 'application/json' }

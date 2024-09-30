@@ -42,7 +42,7 @@ export default function SignupCard() {
     const handleSubmit = async () =>{
         console.log('handleSubmit called');
         
-        const response = await axios.post("https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/doctorlogin", {
+        const response = await axios.post("http://localhost:4000/api/doctorlogin", {
             aadhar: form.aadhar,
             });
       

@@ -43,7 +43,7 @@ export default function SignupCard() {
             privateKey: form.privateKey.replace(/\\n/g, '\n')
         }));
 
-        const url = 'https://cure-centralized-user-registry-for-experts-backend.vercel.app/api/login';
+        const url = 'http://localhost:4000/api/login';
         let config = {
             maxBodyLength: Infinity,
             headers: {
